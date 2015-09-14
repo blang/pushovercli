@@ -25,7 +25,7 @@ var (
 	argPriority        = flag.Int("priority", mustAtoi(os.Getenv("PUSHOVER_PRIORITY")), "Notification priority")
 	argSound           = flag.String("sound", os.Getenv("PUSHOVER_SOUND"), "Notification sound")
 	argTimestamp       = flag.String("timestamp", os.Getenv("PUSHOVER_TIMESTAMP"), "Notification timestamp")
-	argTimestampFormat = flag.String("timestamp_format", os.Getenv("PUSHOVER_TIMESTAMP"), "Notification timestamp format, e.g. Mon Jan 2 15:04:05 -0700 MST 2006")
+	argTimestampFormat = flag.String("timestamp_format", os.Getenv("PUSHOVER_TIMESTAMP_FORMAT"), "Notification timestamp format, e.g. Mon Jan 2 15:04:05 -0700 MST 2006")
 )
 
 func main() {
@@ -65,6 +65,6 @@ func main() {
 	}
 	if len(resp.Errors) > 0 {
 		fmt.Fprintf(os.Stderr, "Error: %s", err)
-		os.Exit(1)
+		os.Exit(2)
 	}
 }
