@@ -1,0 +1,4 @@
+package: main
+import:
+  - package: github.com/gregdel/pushover
+    ref:     047451b7c04d2be224d70e49cce1642dd2cf4267
