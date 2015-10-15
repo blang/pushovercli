@@ -3,11 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/gregdel/pushover"
+	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/gregdel/pushover"
 )
 
 func mustAtoi(s string) (i int) {
@@ -33,7 +35,16 @@ func main() {
 
 	app := pushover.New(*argToken)
 	recipient := pushover.NewRecipient(*argUser)
-	msg := pushover.NewMessage(strings.Join(flag.Args(), " "))
+	body := strings.Join(flag.Args(), " ")
+	if body == "" {
+		b, err := ioutil.ReadAll(os.Stdin)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %s", err)
+			os.Exit(2)
+		}
+		body = string(b)
+	}
+	msg := pushover.NewMessage(body)
 	if *argTitle != "" {
 		msg.Title = *argTitle
 	}
